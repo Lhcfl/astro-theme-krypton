@@ -1,0 +1,31 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Layout from "./Layout.astro";
+import PostMeta from "@/components/PostMeta.astro";
+import { generateDescription } from "@/utils/gen-description";
+
+type Props = CollectionEntry<"blog">;
+
+const post = Astro.props;
+const { title, date, updatedDate } = post.data;
+const description = await generateDescription(post);
+---
+
+<Layout
+  title={title || date.toLocaleDateString()}
+  description={description}
+  image={post.data.thumbnail}
+>
+  <article class="blog-post card card-lg md:shadow-sm rounded-lg">
+    <div class="md:card-body">
+      <div class="post-title text-4xl font-bold">
+        <h1>{title}</h1>
+      </div>
+      <div class="markdown-body is-detailed">
+        <slot />
+      </div>
+      <hr />
+      <PostMeta class="mt-4" post={post} />
+    </div>
+  </article>
+</Layout>

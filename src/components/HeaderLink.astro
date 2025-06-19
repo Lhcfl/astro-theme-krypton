@@ -1,0 +1,28 @@
+---
+import { Icon } from "astro-icon/components";
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"a"> & { icon: string; label: string };
+
+const { icon, label, href, class: className, ...props } = Astro.props;
+const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
+const subpath = pathname.match(/[^\/]+/g);
+const isActive = href === pathname || href === "/" + (subpath?.[0] || "");
+---
+
+<a
+  href={href}
+  role="button"
+  class="header-link btn btn-ghost max-sm:btn-sm"
+  class:list={[
+    className,
+    { "text-primary": isActive, "max-sm:btn-circle": !isActive },
+  ]}
+  aria-label={label}
+  {...props}
+>
+  <Icon class="nav-icon max-sm:text-xl" name={icon} />
+  <span class:list={["nav-text", { "max-sm:hidden": !isActive }]}>
+    {label}
+  </span>
+</a>

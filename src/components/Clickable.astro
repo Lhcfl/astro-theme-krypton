@@ -1,0 +1,41 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"div"> & {
+  href: string;
+};
+const {
+  href,
+  class: className,
+  "aria-label": AriaLabel,
+  ...props
+} = Astro.props;
+---
+
+<div class=`clickable ${className}` {...props}>
+  <slot />
+  <a class="clickable-bkg-link" href={href} aria-label={AriaLabel}></a>
+</div>
+
+<style lang="scss">
+  .clickable {
+    position: relative;
+
+    // make the whole card clickable
+    a.clickable-bkg-link {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    // make the clickable area still clickable
+    :global(a:not(.clickable-bkg-link)) {
+      position: relative;
+      z-index: 1;
+    }
+    :global(button) {
+      position: relative;
+      z-index: 1;
+    }
+  }
+</style>

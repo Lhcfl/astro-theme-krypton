@@ -1,0 +1,23 @@
+---
+import { SITE_DESCRIPTION } from "@/consts";
+import Layout from "./Layout.astro";
+
+type Props = {
+  title: string;
+};
+
+const { title } = Astro.props;
+---
+
+<Layout title={title} description={SITE_DESCRIPTION}>
+  <article class="blog-page card card-lg md:shadow-sm rounded-lg">
+    <div class="md:card-body">
+      <div class="page-title text-4xl font-bold">
+        <h1>{title}</h1>
+      </div>
+      <div class="markdown-body is-detailed">
+        <slot />
+      </div>
+    </div>
+  </article>
+</Layout>

@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+[data-theme="dark"] {
+  --color-primary: #1daef3;
+}
+
+@layer components {
+  .post-meta-badge {
+    @apply badge badge-dash hover:badge-secondary text-sm transition-all whitespace-nowrap overflow-hidden text-ellipsis justify-start;
+  }
+}

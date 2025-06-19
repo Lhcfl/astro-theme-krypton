@@ -1,0 +1,45 @@
+---
+import { SITE_TITLE } from "@/consts";
+import DarkLightToggle from "@/components/DarkLightToggle.svelte";
+import HeaderLink from "./HeaderLink.astro";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import Logo from "@data/logo.png";
+---
+
+<header class="navbar shadow-lg fixed backdrop-blur-md z-30">
+  <div class="navbar-start">
+    <a href="/" class="lg:ml-4">
+      <div class="nav-site-avatar avatar w-10">
+        <Image
+          src={Logo}
+          alt={SITE_TITLE}
+          width={100}
+          height={100}
+          format="webp"
+          loading="eager"
+        />
+      </div>
+      <span class="nav-site-title text-lg font-bold max-lg:hidden ml-2"
+        >{SITE_TITLE}</span
+      >
+    </a>
+  </div>
+  <nav class="navbar-center">
+    <div class="internal-links drop-shadow-sm drop-shadow-base-100">
+      <HeaderLink href="/" icon="mingcute:home-3-line" label="Home" />
+      <HeaderLink
+        href="/archives"
+        icon="mingcute:archive-line"
+        label="Archives"
+      />
+      <HeaderLink href="/tags" icon="mingcute:tag-2-line" label="Tags" />
+      <HeaderLink href="/about" icon="mingcute:user-3-line" label="About" />
+      <HeaderLink href="/links" icon="mingcute:link-3-line" label="Links" />
+      <HeaderLink href="/search" icon="mingcute:search-3-line" label="Search" />
+    </div>
+  </nav>
+  <div class="navbar-end drop-shadow-sm drop-shadow-base-100">
+    <DarkLightToggle client:load />
+  </div>
+</header>

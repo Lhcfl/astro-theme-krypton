@@ -1,0 +1,12 @@
+---
+import { SITE_AUTHOR } from "@/consts";
+
+const today = new Date();
+---
+
+<footer class="mt-20">
+  <div class="text-center mb-4">
+    &copy; {today.getFullYear()}
+    {SITE_AUTHOR}. All rights reserved.
+  </div>
+</footer>

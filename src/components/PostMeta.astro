@@ -1,0 +1,45 @@
+---
+import type { CollectionEntry } from "astro:content";
+import FormattedDate from "./FormattedDate.astro";
+import { Icon } from "astro-icon/components";
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"p"> & {
+  post: CollectionEntry<"blog">;
+};
+
+const { post, class: className, ...props } = Astro.props;
+---
+
+<p class=`post-meta flex flex-wrap items-center gap-2 ${className}` {...props}>
+  <span class="date flex gap-1 items-center flex-shrink-0">
+    <FormattedDate date={post.data.date} />
+  </span>
+  <span
+    class="tags flex flex-wrap gap-2 max-w-full overflow-hidden text-ellipsis"
+  >
+    {
+      post.data.tags?.map((tag) => (
+        <a class="tag-item post-meta-badge" href={`/tags/${tag}/`}>
+          <Icon class="flex-shrink-0" name="mingcute:tag-line" />
+          {tag}
+        </a>
+      ))
+    }
+  </span>
+  <span
+    class="categories flex flex-wrap gap-2 max-w-full overflow-hidden text-ellipsis"
+  >
+    {
+      post.data.categories && (
+        <a
+          class="category-item post-meta-badge"
+          href={`/categories/${post.data.categories}/`}
+        >
+          <Icon class="flex-shrink-0" name="mingcute:folder-2-line" />
+          <span>{post.data.categories}</span>
+        </a>
+      )
+    }
+  </span>
+</p>

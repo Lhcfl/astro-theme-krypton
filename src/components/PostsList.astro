@@ -1,0 +1,25 @@
+---
+import type { CollectionEntry } from "astro:content";
+import FormattedDate from "./FormattedDate.astro";
+import PostExcerpt from "./PostExcerpt.astro";
+import { render } from "astro:content";
+import PostMeta from "./PostMeta.astro";
+import PostCard from "./PostCard.astro";
+
+type Props = {
+  posts: CollectionEntry<"blog">[];
+  sort?: boolean;
+};
+
+const { posts, sort = false } = Astro.props;
+
+const sortedPosts = sort
+  ? posts.sort((a, b) => {
+      return b.data.date.getTime() - a.data.date.getTime();
+    })
+  : posts;
+---
+
+<div class="posts-list flex flex-col gap-4">
+  {sortedPosts.map((post) => <PostCard post={post} />)}
+</div>

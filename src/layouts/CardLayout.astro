@@ -1,0 +1,21 @@
+---
+import Layout from "./Layout.astro";
+
+type Props = {
+  title: string;
+  description: string;
+};
+
+const { title, description } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <div class="card card-lg md:shadow-sm rounded-lg">
+    <div class="md:card-body">
+      <div class="title text-4xl font-bold">
+        <h1>{title}</h1>
+      </div>
+      <slot />
+    </div>
+  </div>
+</Layout>
