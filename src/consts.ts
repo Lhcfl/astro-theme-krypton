@@ -3,34 +3,39 @@
 
 import YAML from "js-yaml";
 import ConfigText from "@data/theme-config.yml?raw";
+import { z } from "astro:schema";
+
+const validator = z.object({
+  title: z.string(),
+  description: z.string(),
+  author: z.string(),
+});
 
 const ThemeConfig = (() => {
   try {
-    return YAML.load(ConfigText) as Record<string, any>;
+    var raw = YAML.load(ConfigText) as any;
   } catch (error) {
-    console.error("Error loading theme config:", error);
+    console.error("Error loading theme config: ", error);
     throw new Error(
       "Failed to load theme configuration. Please check your data/theme-config.yml file."
     );
   }
+  try {
+    return validator.parse(raw);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      const message = [
+        `On validating theme config data/theme-config.yml:`,
+        ...error.issues.map((x) => `[${x.code}] at "${x.path}": ${x.message}`),
+      ].join("\n");
+      throw new Error(message);
+    } else {
+      console.error("Unexpected error validating theme config:", error);
+      throw error;
+    }
+  }
 })();
 
-function config<T>(key: string, valueType: T): T {
-  if (key in ThemeConfig) {
-    if (typeof ThemeConfig[key] !== typeof valueType) {
-      throw new Error(
-        `Type mismatch for key "${key}": expected ${typeof valueType}, got ${typeof ThemeConfig[
-          key
-        ]}, please check your "data/theme-config.yml"`
-      );
-    }
-    return ThemeConfig[key] as T;
-  }
-  throw new Error(
-    `Key "${key}" not found in theme config, please check your "data/theme-config.yml"`
-  );
-}
-
-export const SITE_TITLE = config("title", "string");
-export const SITE_DESCRIPTION = config("description", "string");
-export const SITE_AUTHOR = config("author", "string");
+export const SITE_TITLE = ThemeConfig.title;
+export const SITE_DESCRIPTION = ThemeConfig.description;
+export const SITE_AUTHOR = ThemeConfig.author;
