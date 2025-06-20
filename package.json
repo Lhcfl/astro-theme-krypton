@@ -20,6 +20,7 @@
     "astro": "^5.9.2",
     "astro-icon": "^1.1.5",
     "fuse.js": "^7.1.0",
+    "js-yaml": "^4.1.0",
     "katex": "^0.16.22",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",
@@ -33,6 +34,7 @@
   "devDependencies": {
     "@shikijs/colorized-brackets": "^3.6.0",
     "@types/he": "^1.2.3",
+    "@types/js-yaml": "^4.0.9",
     "@types/sanitize-html": "^2.16.0",
     "daisyui": "^5.0.43",
     "he": "^1.2.0",

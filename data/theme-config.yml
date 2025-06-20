@@ -1,0 +1,7 @@
+# Astro Configuration
+site: https://url-of-your-site.com
+
+# Theme Configuration
+title: Your Site Title
+description: A brief description of your site.
+author: Your Name

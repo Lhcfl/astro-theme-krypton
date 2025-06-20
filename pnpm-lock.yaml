@@ -38,6 +38,9 @@ importers:
       fuse.js:
         specifier: ^7.1.0
         version: 7.1.0
+      js-yaml:
+        specifier: ^4.1.0
+        version: 4.1.0
       katex:
         specifier: ^0.16.22
         version: 0.16.22
@@ -69,6 +72,9 @@ importers:
       '@types/he':
         specifier: ^1.2.3
         version: 1.2.3
+      '@types/js-yaml':
+        specifier: ^4.0.9
+        version: 4.0.9
       '@types/sanitize-html':
         specifier: ^2.16.0
         version: 2.16.0
@@ -849,6 +855,9 @@ packages:
 
   '@types/he@1.2.3':
     resolution: {integrity: sha512-q67/qwlxblDzEDvzHhVkwc1gzVWxaNxeyHUBF4xElrvjL11O+Ytze+1fGpBHlr/H9myiBUaUXNnNPmBHxxfAcA==}
+
+  '@types/js-yaml@4.0.9':
+    resolution: {integrity: sha512-k4MGaQl5TGo/iipqb2UDG2UwjXziSWkh0uysQelTlJpX1qGlpUZYm8PnO4DxG1qBomtJUdYJ6qR6xdIah10JLg==}
 
   '@types/katex@0.16.7':
     resolution: {integrity: sha512-HMwFiRujE5PjrgwHQ25+bsLJgowjGjm5Z8FVSf0N6PwgJrwxH0QxzHYDcKsTfV3wva0vzrpqMTJS2jXPr5BMEQ==}
@@ -3351,6 +3360,8 @@ snapshots:
       '@types/unist': 3.0.3
 
   '@types/he@1.2.3': {}
+
+  '@types/js-yaml@4.0.9': {}
 
   '@types/katex@0.16.7': {}
 

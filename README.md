@@ -40,8 +40,11 @@ Inside of this project, you'll see the following folders and files:
 │   ├── blog/
 │   │   └── helloworld.md
 │   └── pages/
-│       ├── links.mdx
-│       └── about.md
+│   │   ├── links.mdx
+│   │   └── about.md
+│   ├── logo.png
+│   ├── profile.mdx
+│   └── theme-config.yml
 ├── public/
 ├── src/
 │   ├── assets/

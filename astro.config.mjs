@@ -8,10 +8,23 @@ import icon from "astro-icon";
 import svelte from "@astrojs/svelte";
 import { createShikiConfig } from "./shiki-ext.js";
 import tailwindcss from "@tailwindcss/vite";
+import YAML from "js-yaml";
+import fs from "node:fs";
+
+/** @type {any} */
+const ThemeConfig = (() => {
+  try {
+    const str = fs.readFileSync("./data/theme-config.yml", "utf8");
+    return YAML.load(str);
+  } catch (e) {
+    console.error("Error reading theme-config.yml:", e);
+    throw e;
+  }
+})();
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://yoursite.com",
+  site: ThemeConfig.site,
   markdown: {
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex],

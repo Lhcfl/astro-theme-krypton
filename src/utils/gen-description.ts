@@ -1,6 +1,7 @@
 import { render, type CollectionEntry } from "astro:content";
 import { genRawText } from "./gen-raw-text";
 import { experimental_AstroContainer } from "astro/container";
+import { SITE_DESCRIPTION } from "@/consts";
 
 type Blog = CollectionEntry<"blog">;
 
@@ -17,7 +18,7 @@ export const generateDescription = async (blog: Blog) => {
     console.warn(
       `Blog post ${blog.id} (${blog.filePath}) does not have rendered content. Please ensure it is properly rendered.`
     );
-    return "";
+    return SITE_DESCRIPTION;
   }
   const { html: rendered } = blog.rendered;
 
