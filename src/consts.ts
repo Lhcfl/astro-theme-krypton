@@ -9,6 +9,13 @@ const validator = z.object({
   title: z.string(),
   description: z.string(),
   author: z.string(),
+  nav: z.array(
+    z.object({
+      href: z.string(),
+      icon: z.string(),
+      label: z.string(),
+    })
+  ),
 });
 
 const ThemeConfig = (() => {
@@ -39,3 +46,4 @@ const ThemeConfig = (() => {
 export const SITE_TITLE = ThemeConfig.title;
 export const SITE_DESCRIPTION = ThemeConfig.description;
 export const SITE_AUTHOR = ThemeConfig.author;
+export const SiteConfig = ThemeConfig;

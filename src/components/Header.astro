@@ -1,5 +1,5 @@
 ---
-import { SITE_TITLE } from "@/consts";
+import { SITE_TITLE, SiteConfig } from "@/consts";
 import DarkLightToggle from "@/components/DarkLightToggle.svelte";
 import HeaderLink from "./HeaderLink.astro";
 import { Icon } from "astro-icon/components";
@@ -27,16 +27,7 @@ import Logo from "@data/logo.png";
   </div>
   <nav class="navbar-center">
     <div class="internal-links drop-shadow-sm drop-shadow-base-100">
-      <HeaderLink href="/" icon="mingcute:home-3-line" label="Home" />
-      <HeaderLink
-        href="/archives"
-        icon="mingcute:archive-line"
-        label="Archives"
-      />
-      <HeaderLink href="/tags" icon="mingcute:tag-2-line" label="Tags" />
-      <HeaderLink href="/about" icon="mingcute:user-3-line" label="About" />
-      <HeaderLink href="/links" icon="mingcute:link-3-line" label="Links" />
-      <HeaderLink href="/search" icon="mingcute:search-3-line" label="Search" />
+      {SiteConfig.nav.map((link) => <HeaderLink {...link} />)}
     </div>
   </nav>
   <div class="navbar-end drop-shadow-sm drop-shadow-base-100">

@@ -5,3 +5,24 @@ site: https://url-of-your-site.com
 title: Your Site Title
 description: A brief description of your site.
 author: Your Name
+
+# Navigation Links
+nav:
+  - href: "/"
+    icon: mingcute:home-3-line
+    label: Home
+  - href: "/archives"
+    icon: mingcute:archive-line
+    label: Archives
+  - href: "/tags"
+    icon: mingcute:tag-2-line
+    label: Tags
+  - href: "/about"
+    icon: mingcute:user-3-line
+    label: About
+  - href: "/links"
+    icon: mingcute:link-3-line
+    label: Links
+  - href: "/search"
+    icon: mingcute:search-3-line
+    label: Search
