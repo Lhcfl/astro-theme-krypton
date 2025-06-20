@@ -1,9 +1,10 @@
 import { glob } from "astro/loaders";
 import { defineCollection, z } from "astro:content";
+import { dataPath } from "@/../astro.config.mjs";
 
 const blog = defineCollection({
   // Load Markdown and MDX files in the `src/content/blog/` directory.
-  loader: glob({ base: "./data/blog", pattern: "**/*.{md,mdx}" }),
+  loader: glob({ base: dataPath + "/blog", pattern: "**/*.{md,mdx}" }),
   // Type-check frontmatter using a schema
   schema: ({ image }) =>
     z.object({
@@ -22,7 +23,7 @@ const blog = defineCollection({
 
 const pages = defineCollection({
   // Load Markdown and MDX files in the `src/content/blog/` directory.
-  loader: glob({ base: "./data/pages", pattern: "**/*.{md,mdx}" }),
+  loader: glob({ base: dataPath + "/pages", pattern: "**/*.{md,mdx}" }),
   // Type-check frontmatter using a schema
   schema: ({ image }) =>
     z.object({

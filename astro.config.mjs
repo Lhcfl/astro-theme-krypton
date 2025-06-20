@@ -11,10 +11,13 @@ import tailwindcss from "@tailwindcss/vite";
 import YAML from "js-yaml";
 import fs from "node:fs";
 
+const dataOutside = fs.existsSync("../data");
+export const dataPath = dataOutside ? "../data" : "./data";
+
 /** @type {any} */
 const ThemeConfig = (() => {
   try {
-    const str = fs.readFileSync("./data/theme-config.yml", "utf8");
+    const str = fs.readFileSync(new URL(`${dataPath}/theme-config.yml`, import.meta.url), "utf8");
     return YAML.load(str);
   } catch (e) {
     console.error("Error reading theme-config.yml:", e);
@@ -36,7 +39,7 @@ export default defineConfig({
     resolve: {
       alias: {
         "@": new URL("./src/", import.meta.url).pathname,
-        "@data": new URL("./data/", import.meta.url).pathname,
+        "@data": new URL(dataPath, import.meta.url).pathname,
       },
     },
   },
