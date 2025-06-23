@@ -2,6 +2,7 @@
 import { type CollectionEntry, getCollection } from "astro:content";
 import BlogPost from "../../layouts/BlogPost.astro";
 import { render } from "astro:content";
+import Toc from "@/components/Toc.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -13,9 +14,10 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 ---
 
-<BlogPost {...post}>
+<BlogPost post={post} hasSidebar={post.data.toc}>
   <Content />
+  {post.data.toc && <Toc data={headings} slot="sidebar" />}
 </BlogPost>

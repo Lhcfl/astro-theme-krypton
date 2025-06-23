@@ -38,6 +38,10 @@ body {
     line-height: 1.9em;
   }
 
+  [id] {
+    scroll-margin-top: var(--main-pt);
+  }
+
   h1,
   h2,
   h3,

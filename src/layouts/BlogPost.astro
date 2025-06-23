@@ -4,10 +4,13 @@ import Layout from "./Layout.astro";
 import PostMeta from "@/components/PostMeta.astro";
 import { generateDescription } from "@/utils/gen-description";
 
-type Props = CollectionEntry<"blog">;
+type Props = {
+  post: CollectionEntry<"blog">;
+  hasSidebar?: boolean;
+};
 
-const post = Astro.props;
-const { title, date, updatedDate } = post.data;
+const { post, hasSidebar = false } = Astro.props;
+const { title, date } = post.data;
 const description = await generateDescription(post);
 ---
 
@@ -15,17 +18,35 @@ const description = await generateDescription(post);
   title={title || date.toLocaleDateString()}
   description={description}
   image={post.data.thumbnail}
+  maxw={hasSidebar ? "max-w-270" : undefined}
 >
-  <article class="blog-post card card-lg md:shadow-sm rounded-lg">
-    <div class="md:card-body">
-      <div class="post-title text-4xl font-bold">
-        <h1>{title}</h1>
+  <div class="blog-post-container flex gap-4 w-full">
+    <article class="blog-post flex-grow-1 card card-lg md:shadow-sm rounded-lg">
+      <div class="md:card-body">
+        <div class="article-body">
+          <div class="post-title text-4xl font-bold">
+            <h1>{title}</h1>
+          </div>
+          <div class="markdown-body is-detailed">
+            <slot />
+          </div>
+          <hr />
+          <PostMeta class="mt-4" post={post} />
+        </div>
       </div>
-      <div class="markdown-body is-detailed">
-        <slot />
-      </div>
-      <hr />
-      <PostMeta class="mt-4" post={post} />
-    </div>
-  </article>
+    </article>
+    {
+      hasSidebar && (
+        <div class="max-md:hidden">
+          <nav class="card shadow-sm h-fit sticky top-(--main-pt)">
+            <div class="card-body">
+              <div class="min-w-50 w-fit max-w-100">
+                <slot name="sidebar" />
+              </div>
+            </div>
+          </nav>
+        </div>
+      )
+    }
+  </div>
 </Layout>

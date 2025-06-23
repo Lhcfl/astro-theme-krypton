@@ -1,0 +1,84 @@
+---
+import type { MarkdownHeading } from "astro";
+import type { RecursiveHeading } from "@/types/toc";
+import TocListRec from "@/components/TocListRec.astro";
+
+type Props = { data: MarkdownHeading[] };
+const { data } = Astro.props as Props;
+
+function createRecursiveHeading(
+  headings: MarkdownHeading[]
+): RecursiveHeading[] {
+  if (headings.length === 0) {
+    return [];
+  }
+  const minDepth = Math.min(...headings.map((h) => h.depth));
+  const ret: RecursiveHeading[] = [];
+  let current: RecursiveHeading = { kind: "shadow", inner: [] };
+  let currentInner: MarkdownHeading[] = [];
+  let index = -1;
+  for (const heading of headings) {
+    index++;
+    if (index == 0 && heading.depth === minDepth) {
+      current = { kind: "heading", ...heading, inner: [] };
+      continue;
+    }
+    if (heading.depth > minDepth) {
+      currentInner.push(heading);
+      continue;
+    }
+    if (heading.depth == minDepth) {
+      current.inner = createRecursiveHeading(currentInner);
+      ret.push(current);
+      current = { kind: "heading", ...heading, inner: [] };
+      currentInner = [];
+    }
+  }
+  ret.push(current);
+  return ret;
+}
+
+const headings = createRecursiveHeading(data);
+---
+
+<div id="page-toc">
+  <TocListRec data={headings} />
+</div>
+
+<script>
+  function highlightTocListItems(slug: string) {
+    const toc = document.getElementById("page-toc");
+    if (!toc) return;
+    const lis = toc.querySelectorAll<HTMLAnchorElement>("a.toc-link");
+    lis.forEach((li) => li.classList.remove("active"));
+    for (const li of lis) {
+      li.classList.add("active");
+      console.log([li.dataset.slug, slug]);
+      if (li.dataset.slug === slug) {
+        break;
+      }
+    }
+  }
+
+  function obs() {
+    const tocRoot = document.querySelector(".markdown-body.is-detailed");
+    console.log(tocRoot);
+    if (!tocRoot) return;
+    const targets = tocRoot.querySelectorAll("h1,h2,h3,h4,h5,h6");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const firstVisible = entries.find((entry) => entry.isIntersecting);
+        const id = firstVisible?.target.id;
+        if (!id) return;
+        console.log("finding:", id);
+        highlightTocListItems(id);
+      },
+      { threshold: 0.1 }
+    ); // 视窗内 10% 就触发
+    targets.forEach((target) => {
+      observer.observe(target);
+    });
+  }
+  document.addEventListener("astro:after-swap", obs);
+  obs();
+</script>
