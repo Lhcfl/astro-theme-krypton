@@ -20,6 +20,7 @@ const description = await generateDescription(post);
   image={post.data.thumbnail}
   maxw={hasSidebar ? "max-w-280" : undefined}
   class="xl:max-w-300"
+  bodyClass={hasSidebar ? "has-sidebar" : undefined}
 >
   <div class="blog-post-container flex gap-4 w-full">
     <article class="blog-post flex-grow-1 card card-lg md:shadow-sm rounded-lg">
@@ -38,8 +39,8 @@ const description = await generateDescription(post);
     </article>
     {
       hasSidebar && (
-        <div class="max-md:hidden">
-          <nav class="sidebar-card card shadow-sm h-fit sticky top-(--main-pt) overflow-auto">
+        <div class="sidebar hidden md:block md:relative">
+          <nav class="sidebar-card bg-base-100 card shadow-sm h-fit sticky top-(--main-pt) overflow-auto">
             <div class="card-body">
               <div class="min-w-50 w-fit xl:min-w-70">
                 <slot name="sidebar" />
@@ -52,8 +53,14 @@ const description = await generateDescription(post);
   </div>
 </Layout>
 
-<style>
+<style lang="scss">
+  @reference "../styles/tailwind.css";
   nav.sidebar-card {
     max-height: calc(100vh - var(--main-pt) - var(--spacing) * 4);
+  }
+  :global(body.show-toc) .sidebar {
+    display: block;
+    animation: fadeInUp 0.3s ease-in-out;
+    @apply fixed w-full bottom-2;
   }
 </style>

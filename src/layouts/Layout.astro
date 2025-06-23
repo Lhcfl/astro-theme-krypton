@@ -12,6 +12,7 @@ type Props = {
   description: string;
   image?: ImageMetadata;
   maxw?: string;
+  bodyClass?: string;
 } & HTMLAttributes<"div">;
 
 const {
@@ -20,6 +21,8 @@ const {
   image,
   maxw = "max-w-230",
   class: className,
+  bodyClass,
+  ...props
 } = Astro.props;
 ---
 
@@ -28,11 +31,12 @@ const {
   <head>
     <BaseHead title={title} description={description} image={image} />
   </head>
-  <body>
+  <body class={bodyClass}>
     <div class="app">
       <Header />
       <div
         class=`main-content ${maxw} min-h-screen m-auto px-4 pt-(--main-pt) ${className}`
+        {...props}
       >
         <main>
           <slot />
