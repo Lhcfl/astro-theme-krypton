@@ -2,6 +2,7 @@
 import type { MarkdownHeading } from "astro";
 import type { RecursiveHeading } from "@/types/toc";
 import TocListRec from "@/components/TocListRec.astro";
+import { Icon } from "astro-icon/components";
 
 type Props = { data: MarkdownHeading[] };
 const { data } = Astro.props as Props;
@@ -38,23 +39,107 @@ function createRecursiveHeading(
   return ret;
 }
 
-const headings = createRecursiveHeading(data);
+const minDepth = Math.min(...data.map((h) => h.depth)) || 0;
+
+const getMargin = (depth: number) => {
+  switch (depth - minDepth) {
+    case 0:
+      return "ml-0";
+    case 1:
+      return "ml-2";
+    case 2:
+      return "ml-4";
+    case 3:
+      return "ml-6";
+    case 4:
+      return "ml-7";
+    case 5:
+      return "ml-8";
+    case 6:
+      return "ml-9";
+    default:
+      return "ml-7"; // For depth greater than 6, use ml-7
+  }
+};
 ---
 
 <div id="page-toc">
-  <TocListRec data={headings} />
+  <ul class="timeline timeline-vertical">
+    {
+      data.map((heading, idx) => (
+        <li class="toc-item transition opacity-60" data-slug={heading.slug}>
+          {idx !== 0 && <hr class="hr-begin" />}
+          <div class="timeline-middle">
+            <Icon name="mingcute:check-circle-fill" class="active-indicator" />
+            <Icon
+              name="mingcute:arrow-right-circle-fill"
+              class="active-now-indicator"
+            />
+            <Icon name="mingcute:add-circle-line" class="inactive-indicator" />
+          </div>
+          <div class="timeline-end">
+            <div class={getMargin(heading.depth)}>
+              <a href={`#${heading.slug}`}>{heading.text}</a>
+            </div>
+          </div>
+          {idx !== data.length - 1 && <hr class="hr-end" />}
+        </li>
+      ))
+    }
+  </ul>
 </div>
 
+<style lang="scss">
+  @reference "../styles/tailwind.css";
+  li.toc-item {
+    --timeline-col-start: 0;
+    .active-now-indicator,
+    .active-indicator {
+      display: none;
+    }
+  }
+  li.toc-item.active {
+    @apply text-secondary opacity-100;
+    .active-indicator {
+      display: block;
+    }
+    .inactive-indicator {
+      display: none;
+    }
+
+    &:not(.active-now) hr {
+      @apply bg-secondary;
+    }
+
+    &.active-now {
+      @apply font-bold;
+
+      opacity: 1;
+      .active-indicator {
+        display: none;
+      }
+      .active-now-indicator {
+        display: block;
+      }
+      .hr-begin {
+        @apply bg-secondary;
+      }
+    }
+  }
+</style>
+
 <script>
+  import { useThrottledFn } from "@/utils/throttle";
   function highlightTocListItems(slug: string) {
     const toc = document.getElementById("page-toc");
     if (!toc) return;
-    const lis = toc.querySelectorAll<HTMLAnchorElement>("a.toc-link");
-    lis.forEach((li) => li.classList.remove("active"));
+    const lis = toc.querySelectorAll("li");
+    lis.forEach((li) => li.classList.remove("active", "active-now"));
     for (const li of lis) {
       li.classList.add("active");
-      console.log([li.dataset.slug, slug]);
+      // console.log([li.dataset.slug, slug]);
       if (li.dataset.slug === slug) {
+        li.classList.add("active-now");
         break;
       }
     }
@@ -65,18 +150,18 @@ const headings = createRecursiveHeading(data);
     console.log(tocRoot);
     if (!tocRoot) return;
     const targets = tocRoot.querySelectorAll("h1,h2,h3,h4,h5,h6");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const firstVisible = entries.find((entry) => entry.isIntersecting);
-        const id = firstVisible?.target.id;
-        if (!id) return;
-        console.log("finding:", id);
-        highlightTocListItems(id);
-      },
-      { threshold: 0.1 }
-    ); // 视窗内 10% 就触发
-    targets.forEach((target) => {
-      observer.observe(target);
+
+    const evalHighlight = useThrottledFn(() => {
+      console.log("evalHighlight");
+      const firstVisible = targets
+        .values()
+        .find((t) => t.getBoundingClientRect().y > 70);
+      if (firstVisible) highlightTocListItems(firstVisible?.id);
+    }, 200);
+
+    document.addEventListener("scroll", evalHighlight);
+    document.addEventListener("astro:after-swap", () => {
+      document.removeEventListener("scroll", evalHighlight);
     });
   }
   document.addEventListener("astro:after-swap", obs);

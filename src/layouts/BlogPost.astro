@@ -18,7 +18,8 @@ const description = await generateDescription(post);
   title={title || date.toLocaleDateString()}
   description={description}
   image={post.data.thumbnail}
-  maxw={hasSidebar ? "max-w-270" : undefined}
+  maxw={hasSidebar ? "max-w-280" : undefined}
+  class="xl:max-w-300"
 >
   <div class="blog-post-container flex gap-4 w-full">
     <article class="blog-post flex-grow-1 card card-lg md:shadow-sm rounded-lg">
@@ -38,9 +39,9 @@ const description = await generateDescription(post);
     {
       hasSidebar && (
         <div class="max-md:hidden">
-          <nav class="card shadow-sm h-fit sticky top-(--main-pt)">
+          <nav class="sidebar-card card shadow-sm h-fit sticky top-(--main-pt) overflow-auto">
             <div class="card-body">
-              <div class="min-w-50 w-fit max-w-100">
+              <div class="min-w-50 w-fit xl:min-w-70">
                 <slot name="sidebar" />
               </div>
             </div>
@@ -50,3 +51,9 @@ const description = await generateDescription(post);
     }
   </div>
 </Layout>
+
+<style>
+  nav.sidebar-card {
+    max-height: calc(100vh - var(--main-pt) - var(--spacing) * 4);
+  }
+</style>
