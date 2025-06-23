@@ -149,7 +149,7 @@ body {
     &[data-language]::before {
       position: absolute;
       content: attr(data-language);
-      right: 1em;
+      right: 2em;
       opacity: 0.4;
     }
   }
