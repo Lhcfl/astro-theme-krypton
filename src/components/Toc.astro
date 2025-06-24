@@ -147,12 +147,10 @@ const getMargin = (depth: number) => {
 
   function obs() {
     const tocRoot = document.querySelector(".markdown-body.is-detailed");
-    console.log(tocRoot);
     if (!tocRoot) return;
     const targets = tocRoot.querySelectorAll("h1,h2,h3,h4,h5,h6");
 
     const evalHighlight = useThrottledFn(() => {
-      console.log("evalHighlight");
       const firstVisible = targets
         .values()
         .find((t) => t.getBoundingClientRect().y > 70);
@@ -164,6 +162,9 @@ const getMargin = (depth: number) => {
       document.removeEventListener("scroll", evalHighlight);
     });
   }
+
+  // after the page is swapped, we need to re-evaluate the toc observer
   document.addEventListener("astro:after-swap", obs);
+  // and the init call
   obs();
 </script>

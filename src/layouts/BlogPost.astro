@@ -18,8 +18,7 @@ const description = await generateDescription(post);
   title={title || date.toLocaleDateString()}
   description={description}
   image={post.data.thumbnail}
-  maxw={hasSidebar ? "max-w-280" : undefined}
-  class="xl:max-w-300"
+  maxw={hasSidebar ? "max-w-280 xl:max-w-300" : undefined}
   bodyClass={hasSidebar ? "has-sidebar" : undefined}
 >
   <div class="blog-post-container flex gap-4 w-full">
