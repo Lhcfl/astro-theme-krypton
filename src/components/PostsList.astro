@@ -1,9 +1,5 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import FormattedDate from "./FormattedDate.astro";
-import PostExcerpt from "./PostExcerpt.astro";
-import { render } from "astro:content";
-import PostMeta from "./PostMeta.astro";
 import PostCard from "./PostCard.astro";
 
 type Props = {
@@ -20,6 +16,6 @@ const sortedPosts = sort
   : posts;
 ---
 
-<div class="posts-list flex flex-col gap-4">
+<div class="posts-list flex flex-col">
   {sortedPosts.map((post) => <PostCard post={post} />)}
 </div>
