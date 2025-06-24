@@ -17,7 +17,10 @@ export const dataPath = dataOutside ? "../data" : "./data";
 /** @type {any} */
 const ThemeConfig = (() => {
   try {
-    const str = fs.readFileSync(new URL(`${dataPath}/theme-config.yml`, import.meta.url), "utf8");
+    const str = fs.readFileSync(
+      new URL(`${dataPath}/theme-config.yml`, import.meta.url),
+      "utf8"
+    );
     return YAML.load(str);
   } catch (e) {
     console.error("Error reading theme-config.yml:", e);
@@ -32,6 +35,10 @@ export default defineConfig({
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex],
     shikiConfig: createShikiConfig(),
+    remarkRehype: {
+      allowDangerousHtml: true,
+      footnoteLabel: "脚注",
+    },
   },
   integrations: [mdx(), sitemap(), icon(), svelte()],
   vite: {
