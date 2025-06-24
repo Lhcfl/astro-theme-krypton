@@ -13,34 +13,39 @@ const { post, class: className, ...props } = Astro.props;
 ---
 
 <p class=`post-meta flex flex-wrap items-center gap-2 ${className}` {...props}>
-  <span class="date flex gap-1 items-center flex-shrink-0">
+  <span class="date flex gap-1 items-center flex-shrink-0 text-sm">
     <FormattedDate date={post.data.date} />
   </span>
-  <span
-    class="tags flex flex-wrap gap-2 max-w-full overflow-hidden text-ellipsis"
-  >
-    {
-      post.data.tags?.map((tag) => (
-        <a class="tag-item post-meta-badge" href={tagUrl(tag)}>
-          <Icon class="flex-shrink-0" name="mingcute:tag-line" />
-          {tag}
-        </a>
-      ))
-    }
-  </span>
-  <span
-    class="categories flex flex-wrap gap-2 max-w-full overflow-hidden text-ellipsis"
-  >
+  <span class="categories items">
     {
       post.data.categories && (
-        <a
-          class="category-item post-meta-badge"
-          href={categoryUrl(post.data.categories)}
-        >
+        <a class="item" href={categoryUrl(post.data.categories)}>
           <Icon class="flex-shrink-0" name="mingcute:folder-2-line" />
-          <span>{post.data.categories}</span>
+          <span class="truncate">{post.data.categories}</span>
         </a>
       )
     }
   </span>
+  <span class="tags items">
+    {
+      post.data.tags?.map((tag) => (
+        <a class="item" href={tagUrl(tag)}>
+          <Icon class="flex-shrink-0" name="mingcute:tag-line" />
+          <span class="truncate">{tag}</span>
+        </a>
+      ))
+    }
+  </span>
 </p>
+
+<style>
+  @reference "../styles/tailwind.css";
+
+  .items {
+    @apply flex flex-wrap max-w-full overflow-hidden text-ellipsis gap-2;
+  }
+
+  .item {
+    @apply text-sm flex items-center gap-1 smooth-underline truncate;
+  }
+</style>
