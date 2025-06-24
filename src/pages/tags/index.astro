@@ -29,7 +29,7 @@ const tagPostsSorted = tagsPosts
 <CardLayout title="Tags" description="All tags used in the blog">
   <div class="tag-cloud mt-4 w-full h-60">
     <WordCloud
-      className="w-full h-full"
+      className="w-full h-full dark:invert bg-transparent!"
       client:only
       list={tagPostsSorted.map(([tag, posts]) => [
         tag,
