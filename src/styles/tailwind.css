@@ -12,8 +12,20 @@
   }
 }
 
-.clickable {
-  position: relative;
+/** A11y: remove animations for prefers-reduced-motion, 
+  * which is a user preference for reduced motion to help with
+  * accessibility. This is important for users who may experience
+  * discomfort or disorientation from animations.
+  */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+@utility clickable {
+  @apply relative;
 
   a.clickable-bkg-link {
     position: absolute;
@@ -30,4 +42,23 @@
     position: relative;
     z-index: 1;
   }
+}
+
+@utility smooth-underline {
+  @apply relative;
+
+  &::after {
+    content: "";
+    height: 2px;
+    transform: scale(0);
+    @apply absolute left-0 bottom-0 w-full bg-primary/50 transition-all;
+  }
+
+  &:hover::after {
+    transform: scale(1);
+  }
+}
+
+.markdown-body a {
+  @apply underline decoration-dotted decoration-primary/50 underline-offset-4 smooth-underline;
 }

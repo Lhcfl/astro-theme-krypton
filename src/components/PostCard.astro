@@ -20,7 +20,7 @@ const { Content } = await render(post);
 >
   <article class="card-body">
     <h2 class="card-title md:text-xl">
-      <a class="hover:underline" href={`/blog/${post.id}/`}>
+      <a class="smooth-underline" href={`/blog/${post.id}/`}>
         {post.data.title || post.data.date.toLocaleDateString()}
       </a>
     </h2>
