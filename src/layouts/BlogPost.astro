@@ -62,4 +62,9 @@ const description = await generateDescription(post);
     animation: fadeInUp 0.3s ease-in-out;
     @apply fixed w-full bottom-2;
   }
+  @media print {
+    .sidebar {
+      display: none;
+    }
+  }
 </style>
