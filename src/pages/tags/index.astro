@@ -44,9 +44,9 @@ const tagPostsSorted = tagsPosts
 ---
 
 <CardLayout title="Tags" description="All tags used in the blog">
-  <div class="tag-cloud">
+  <div class="tag-cloud mt-4 w-full h-60">
     <WordCloud
-      className="w-full h-60"
+      className="w-full h-full"
       client:only
       list={tagPostsSorted.map(([tag, posts]) => [
         tag,
@@ -57,6 +57,7 @@ const tagPostsSorted = tagsPosts
       rotationSteps={2}
       shrinkToFit={true}
       classes="transition-all hover:scale-125 cursor-pointer"
+      fontFamily="Source Han Serif CN for Display"
     />
   </div>
   <div class="tags-list mt-4 grid grid-cols-2 md:grid-cols-3">
