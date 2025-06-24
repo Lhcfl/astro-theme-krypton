@@ -4,6 +4,7 @@ import type { HTMLAttributes } from "astro/types";
 import type { CollectionEntry } from "astro:content";
 import moment from "moment";
 import Clickable from "@/components/Clickable.astro";
+import { blogUrl } from "@/utils/url";
 
 type Props = HTMLAttributes<"div"> & {
   posts: CollectionEntry<"blog">[];
@@ -21,7 +22,7 @@ const sortedPosts = posts.sort((a, b) => {
     {
       sortedPosts.map((post) => (
         <li class="truncate">
-          <a class="smooth-underline" href={`blogs/${post.id}`}>
+          <a class="smooth-underline" href={blogUrl(post)}>
             {post.data.title || post.data.date.toLocaleDateString()}
           </a>
         </li>

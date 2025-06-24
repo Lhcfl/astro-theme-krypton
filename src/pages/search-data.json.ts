@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
 import { genRawText } from "@/utils/gen-raw-text";
+import { blogUrl, categoryUrl, pageUrl, tagUrl } from "@/utils/url";
 
 export const GET: APIRoute = async (context) => {
   const pages = await getCollection("pages");
@@ -17,25 +18,25 @@ export const GET: APIRoute = async (context) => {
         type: "post",
         id: p.id,
         title: p.data.title || p.data.date.toLocaleDateString(),
-        url: `/blog/${p.id}/`,
+        url: blogUrl(p),
         content: genRawText(p.rendered?.html ?? ""),
       })),
     ...pages.map((p) => ({
       type: "page",
       id: p.id,
       title: p.data.title,
-      url: `/${p.id}/`,
+      url: pageUrl(p),
       content: genRawText(p.rendered?.html ?? ""),
     })),
     ...tags.map((tag) => ({
       type: "tag",
       title: tag,
-      url: `/tags/${tag}/`,
+      url: tagUrl(tag),
     })),
     ...categories.map((category) => ({
       type: "category",
       title: category,
-      url: `/categories/${category}/`,
+      url: categoryUrl(category),
     })),
   ];
 

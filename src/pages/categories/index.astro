@@ -1,5 +1,6 @@
 ---
 import CardLayout from "@/layouts/CardLayout.astro";
+import { categoryUrl } from "@/utils/url";
 import { getCollection } from "astro:content";
 
 const posts = await getCollection("blog");
@@ -40,7 +41,7 @@ const letters = tags
               .sort((a, b) => (a[0] < b[0] ? -1 : 1))
               .map(([tag, count]) => (
                 <span class="category-item post-meta-badge">
-                  <a href={`/categories/${tag}/`} class="tag-link">
+                  <a href={categoryUrl(tag)} class="tag-link">
                     {tag} × {count}
                   </a>
                 </span>

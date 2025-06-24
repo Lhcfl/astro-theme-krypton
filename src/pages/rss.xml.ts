@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import { SITE_TITLE, SITE_DESCRIPTION, SITE_AUTHOR } from "../consts";
 import type { APIRoute } from "astro";
 import { generateDescription } from "@/utils/gen-description";
+import { blogUrl } from "@/utils/url";
 
 export const GET: APIRoute = async (context) => {
   const posts = await getCollection("blog");
@@ -15,7 +16,7 @@ export const GET: APIRoute = async (context) => {
         .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
         .map(async (post) => ({
           title: post.data.title,
-          link: `/blog/${post.id}/`,
+          link: blogUrl(post),
           description: await generateDescription(post),
           pubDate: post.data.date,
           categories: [

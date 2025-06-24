@@ -4,6 +4,7 @@ import PostExcerpt from "./PostExcerpt.astro";
 import { render } from "astro:content";
 import PostMeta from "./PostMeta.astro";
 import Clickable from "./Clickable.astro";
+import { blogUrl } from "@/utils/url";
 
 type Props = {
   post: CollectionEntry<"blog">;
@@ -16,11 +17,11 @@ const { Content } = await render(post);
 <Clickable
   class="post-with-excerpt card card-sm md:card-md border-b border-base-content/20 rounded-none"
   aria-label=`Read more about ${post.data.title || 'this article'}`
-  href={`/blog/${post.id}/`}
+  href={blogUrl(post)}
 >
   <article class="card-body">
     <h2 class="card-title md:text-xl">
-      <a class="smooth-underline" href={`/blog/${post.id}/`}>
+      <a class="smooth-underline" href={blogUrl(post)}>
         {post.data.title || post.data.date.toLocaleDateString()}
       </a>
     </h2>

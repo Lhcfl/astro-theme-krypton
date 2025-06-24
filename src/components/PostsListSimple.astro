@@ -4,6 +4,7 @@ import type { HTMLAttributes } from "astro/types";
 import type { CollectionEntry } from "astro:content";
 import moment from "moment";
 import Clickable from "@/components/Clickable.astro";
+import { blogUrl, categoryUrl, tagUrl } from "@/utils/url";
 type Props = HTMLAttributes<"div"> & {
   posts: CollectionEntry<"blog">[];
 };
@@ -47,17 +48,17 @@ for (const post of sortedPosts) {
               <Clickable
                 class="post-box timeline-end w-full mt-2 p-2 hover:bg-primary-content transition-all rounded-sm"
                 aria-label={`Read ${post.data.title || "this article"}`}
-                href={`/blog/${post.id}`}
+                href={blogUrl(post)}
               >
                 <p>
-                  <a class="text-sm md:text-base" href={`/blog/${post.id}`}>
+                  <a class="text-sm md:text-base" href={blogUrl(post)}>
                     {post.data.title || post.data.date.toLocaleDateString()}
                   </a>
                 </p>
                 <p>
                   {post.data.categories && (
                     <a
-                      href={`/categories/${post.data.categories}/`}
+                      href={categoryUrl(post.data.categories)}
                       class="category-item-simple hover:underline text-xs text-gray-500 flex items-center"
                     >
                       {post.data.categories}
@@ -67,7 +68,7 @@ for (const post of sortedPosts) {
                     {post.data.tags?.map((tag) => (
                       <a
                         class="tag-item-simple hover:underline"
-                        href={`/tags/${tag}/`}
+                        href={tagUrl(tag)}
                       >
                         #{tag}
                       </a>

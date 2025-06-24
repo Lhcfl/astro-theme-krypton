@@ -7,6 +7,7 @@ import { chunkArray } from "@/utils/array";
 import Clickable from "@/components/Clickable.astro";
 import { Icon } from "astro-icon/components";
 import WordCloud from "@/components/WordCloud.svelte";
+import { tagUrl } from "@/utils/url";
 
 type Post = CollectionEntry<"blog">;
 
@@ -33,7 +34,7 @@ const tagPostsSorted = tagsPosts
       list={tagPostsSorted.map(([tag, posts]) => [
         tag,
         posts.length,
-        `/tags/${tag}/`,
+        tagUrl(tag),
       ])}
       rotateRatio={0.15}
       rotationSteps={2}
@@ -48,16 +49,13 @@ const tagPostsSorted = tagsPosts
       tagPostsSorted.map(([tag, posts]) => (
         <Clickable
           class="card card-sm rounded-none hover:bg-primary/10 transition-all"
-          href={`/tags/${tag}/`}
+          href={tagUrl(tag)}
           aria-label={`View posts tagged with ${tag}`}
         >
           <div class="card-body">
             <div class="flex items-center justify-between w-full">
               <h2 class="card-title flex-shrink-1 flex-grow-1 truncate">
-                <a
-                  href={`/tags/${tag}/`}
-                  class="flex items-center gap-1 truncate"
-                >
+                <a href={tagUrl(tag)} class="flex items-center gap-1 truncate">
                   <Icon class="flex-shrink-0" name="mingcute:tag-line" />
                   <span class="truncate smooth-underline">{tag}</span>
                 </a>

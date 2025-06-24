@@ -3,6 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import FormattedDate from "./FormattedDate.astro";
 import { Icon } from "astro-icon/components";
 import type { HTMLAttributes } from "astro/types";
+import { categoryUrl, tagUrl } from "@/utils/url";
 
 type Props = HTMLAttributes<"p"> & {
   post: CollectionEntry<"blog">;
@@ -20,7 +21,7 @@ const { post, class: className, ...props } = Astro.props;
   >
     {
       post.data.tags?.map((tag) => (
-        <a class="tag-item post-meta-badge" href={`/tags/${tag}/`}>
+        <a class="tag-item post-meta-badge" href={tagUrl(tag)}>
           <Icon class="flex-shrink-0" name="mingcute:tag-line" />
           {tag}
         </a>
@@ -34,7 +35,7 @@ const { post, class: className, ...props } = Astro.props;
       post.data.categories && (
         <a
           class="category-item post-meta-badge"
-          href={`/categories/${post.data.categories}/`}
+          href={categoryUrl(post.data.categories)}
         >
           <Icon class="flex-shrink-0" name="mingcute:folder-2-line" />
           <span>{post.data.categories}</span>
