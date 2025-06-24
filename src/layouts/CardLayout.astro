@@ -1,21 +1,63 @@
 ---
-import Layout from "./Layout.astro";
+import BaseLayout from "./BaseLayout.astro";
+
+type LayoutProps = Parameters<typeof BaseLayout>[0];
 
 type Props = {
-  title: string;
-  description: string;
-};
+  hasSidebar?: boolean;
+} & LayoutProps;
 
-const { title, description } = Astro.props;
+const { title, hasSidebar = false, ...props } = Astro.props;
 ---
 
-<Layout title={title} description={description}>
+<BaseLayout
+  title={title}
+  maxw={hasSidebar ? "max-w-280 xl:max-w-300" : undefined}
+  bodyClass={hasSidebar ? "has-sidebar" : undefined}
+  class="flex gap-2 w-full"
+  {...props}
+>
   <div class="card card-lg rounded-lg">
-    <div class="md:card-body">
-      <div class="title text-4xl font-bold">
+    <article class="md:card-body">
+      <div class="page-title text-4xl font-bold">
         <h1>{title}</h1>
       </div>
-      <slot />
-    </div>
+      <div>
+        <slot />
+      </div>
+    </article>
   </div>
-</Layout>
+  {
+    hasSidebar && (
+      <div class="sidebar hidden md:block md:relative">
+        <nav class="sidebar-card bg-base-100 card max-md:shadow-sm h-fit sticky top-(--main-pt) overflow-auto">
+          <div class="card-body md:px-0">
+            <div class="min-w-50 md:w-fit xl:min-w-70">
+              <slot name="sidebar" />
+            </div>
+          </div>
+        </nav>
+      </div>
+    )
+  }
+</BaseLayout>
+
+<style lang="scss">
+  @reference "../styles/tailwind.css";
+  nav.sidebar-card {
+    max-height: calc(100vh - var(--main-pt) - var(--spacing) * 4);
+  }
+  @media screen and (max-width: 768px) {
+    :global(body.show-toc) .sidebar {
+      display: block;
+      animation: fadeInUp 0.3s ease-in-out;
+      width: calc(100vw - var(--spacing) * 10);
+      @apply fixed bottom-2;
+    }
+  }
+  @media print {
+    .sidebar {
+      display: none;
+    }
+  }
+</style>

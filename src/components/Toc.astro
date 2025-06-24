@@ -64,7 +64,7 @@ const getMargin = (depth: number) => {
 ---
 
 <div id="page-toc">
-  <ul class="timeline timeline-vertical">
+  <ul class="timeline timeline-vertical w-full">
     {
       data.map((heading, idx) => (
         <li
@@ -95,7 +95,7 @@ const getMargin = (depth: number) => {
 <style lang="scss">
   @reference "../styles/tailwind.css";
   li.toc-item {
-    --timeline-col-start: 0;
+    --timeline-col-start: 1em;
     .active-now-indicator,
     .active-indicator {
       display: none;

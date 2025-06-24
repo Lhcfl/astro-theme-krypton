@@ -1,8 +1,8 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
-import Layout from "@/layouts/Layout.astro";
 import { render } from "astro:content";
-import PageLayout from "@/layouts/PageLayout.astro";
+import CardLayout from "@/layouts/CardLayout.astro";
+import Toc from "@/components/Toc.astro";
 
 export async function getStaticPaths() {
   const pages = await getCollection("pages");
@@ -17,9 +17,17 @@ type Props = {
 };
 
 const { page } = Astro.props;
-const { Content } = await render(page);
+const { Content, headings } = await render(page);
+const hasSidebar = headings.length > 1;
 ---
 
-<PageLayout title={page.data.title}>
-  <Content />
-</PageLayout>
+<CardLayout
+  title={page.data.title}
+  description={page.data.title}
+  hasSidebar={hasSidebar}
+>
+  <div class="markdown-body is-detailed">
+    <Content />
+  </div>
+  {hasSidebar && <Toc data={headings} slot="sidebar" />}
+</CardLayout>

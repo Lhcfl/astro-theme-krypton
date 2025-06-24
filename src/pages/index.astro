@@ -1,16 +1,16 @@
 ---
 import { SITE_DESCRIPTION, SITE_TITLE } from "@/consts";
 import { getCollection } from "astro:content";
-import Layout from "@/layouts/Layout.astro";
 import PostsList from "@/components/PostsList.astro";
 import ProfileMd from "@data/profile.mdx";
+import BaseLayout from "@/layouts/BaseLayout.astro";
 const posts = await getCollection("blog");
 ---
 
-<Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
   <div class="profile markdown-body is-detailed text-center mb-4">
     <h1>{SITE_TITLE}</h1>
     <ProfileMd />
   </div>
   <PostsList posts={posts} sort={true} />
-</Layout>
+</BaseLayout>
