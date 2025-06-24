@@ -67,7 +67,10 @@ const getMargin = (depth: number) => {
   <ul class="timeline timeline-vertical">
     {
       data.map((heading, idx) => (
-        <li class="toc-item transition opacity-60" data-slug={heading.slug}>
+        <li
+          class="toc-item transition text-base-content/60 hover:bg-secondary/10 hover:text-secondary rounded-md"
+          data-slug={heading.slug}
+        >
           {idx !== 0 && <hr class="hr-begin" />}
           <div class="timeline-middle">
             <Icon name="mingcute:check-circle-fill" class="active-indicator" />
@@ -99,7 +102,7 @@ const getMargin = (depth: number) => {
     }
   }
   li.toc-item.active {
-    @apply text-secondary opacity-100;
+    @apply text-secondary;
     .active-indicator {
       display: block;
     }
