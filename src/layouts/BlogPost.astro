@@ -21,7 +21,7 @@ const description = await generateDescription(post);
   maxw={hasSidebar ? "max-w-280 xl:max-w-300" : undefined}
   bodyClass={hasSidebar ? "has-sidebar" : undefined}
 >
-  <div class="blog-post-container flex gap-4 w-full">
+  <div class="blog-post-container flex gap-2 w-full">
     <article class="blog-post flex-grow-1 card card-lg rounded-lg">
       <div class="md:card-body">
         <div class="article-body">
@@ -39,7 +39,7 @@ const description = await generateDescription(post);
     {
       hasSidebar && (
         <div class="sidebar hidden md:block md:relative">
-          <nav class="sidebar-card bg-base-100 card shadow-sm h-fit sticky top-(--main-pt) overflow-auto">
+          <nav class="sidebar-card bg-base-100 card max-md:shadow-sm h-fit sticky top-(--main-pt) overflow-auto">
             <div class="card-body">
               <div class="min-w-50 w-fit xl:min-w-70">
                 <slot name="sidebar" />
@@ -57,10 +57,13 @@ const description = await generateDescription(post);
   nav.sidebar-card {
     max-height: calc(100vh - var(--main-pt) - var(--spacing) * 4);
   }
-  :global(body.show-toc) .sidebar {
-    display: block;
-    animation: fadeInUp 0.3s ease-in-out;
-    @apply fixed w-full bottom-2;
+  @media screen and (max-width: 768px) {
+    :global(body.show-toc) .sidebar {
+      display: block;
+      animation: fadeInUp 0.3s ease-in-out;
+      width: calc(100vw - var(--spacing) * 10);
+      @apply fixed bottom-2;
+    }
   }
   @media print {
     .sidebar {
