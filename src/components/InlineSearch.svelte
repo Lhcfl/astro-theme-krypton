@@ -168,7 +168,13 @@
     {:else}
       <div class="results-list list">
         {#each results.slice(0, SEARCH_RESULT_LIMIT) as result}
-          <div class="list-row">
+          <div class="list-row hover:bg-primary/10 clickable">
+            <a
+              href={result.url}
+              class="clickable-bkg-link"
+              data-astro-prefetch
+              aria-label={result.title}
+            ></a>
             <div class="icon-container text-xl">
               {#if result.type === "post" || result.type === "page"}
                 <Icon icon="mingcute:file-line" />
@@ -179,17 +185,15 @@
               {/if}
             </div>
             <div class="result-body truncate">
-              <div class="result-title">
-                <a href={result.url} class="font-bold" data-astro-prefetch>
-                  {#if result.titleHighlight}
-                    {result.titleHighlight[0]}<mark
-                      >{result.titleHighlight[1]}</mark
-                    >{result.titleHighlight[2]}
-                  {:else}
-                    {result.title}
-                  {/if}
-                </a>
-              </div>
+              <span class="result-title font-bold">
+                {#if result.titleHighlight}
+                  {result.titleHighlight[0]}<mark
+                    >{result.titleHighlight[1]}</mark
+                  >{result.titleHighlight[2]}
+                {:else}
+                  {result.title}
+                {/if}
+              </span>
               {#if result.type === "post" || result.type === "page"}
                 <div class="result-content">
                   <p class="content">

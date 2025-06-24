@@ -11,3 +11,23 @@
     @apply badge badge-dash hover:badge-secondary text-sm transition-all whitespace-nowrap overflow-hidden text-ellipsis justify-start;
   }
 }
+
+.clickable {
+  position: relative;
+
+  a.clickable-bkg-link {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  a:not(.clickable-bkg-link) {
+    position: relative;
+    z-index: 1;
+  }
+
+  button {
+    position: relative;
+    z-index: 1;
+  }
+}
