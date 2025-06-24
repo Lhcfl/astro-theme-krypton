@@ -27,6 +27,7 @@ const isICO = typeof icon == "string" && icon.endsWith(".ico");
   class=`card border border-base-content/10 hover:shadow-lg transition-all card-sm ${icon ? 'card-side' : ''} ${className}`
   aria-label={`Visit ${name}'s blog`}
   {...props}
+  is="div"
 >
   {
     icon && (
