@@ -14,13 +14,13 @@ const { Content } = await render(post);
 ---
 
 <Clickable
-  class="post-with-excerpt card card-sm md:card-md shadow-sm rounded-lg"
+  class="post-with-excerpt card card-sm md:card-md border-b border-base-content/20 rounded-none"
   aria-label=`Read more about ${post.data.title || 'this article'}`
   href={`/blog/${post.id}/`}
 >
   <article class="card-body">
     <h2 class="card-title md:text-xl">
-      <a class="" href={`/blog/${post.id}/`}>
+      <a class="hover:underline" href={`/blog/${post.id}/`}>
         {post.data.title || post.data.date.toLocaleDateString()}
       </a>
     </h2>

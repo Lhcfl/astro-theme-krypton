@@ -3,11 +3,16 @@
 // =====================================
 @use "./color-defination.scss";
 
+@import url("https://chinese-fonts-cdn.deno.dev/packages/sypxzs/dist/%E6%80%9D%E6%BA%90%E5%B1%8F%E6%98%BE%E8%87%BB%E5%AE%8B/result.css");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap");
+
 :root {
   --mono-font-face: "mononoki", "Consolas", "Menlo", "Monaco", "Lucida Console",
     "Courier New", "Courier", monospace;
-  --normal-font-face: "Open Sans", "Helvetica Neue", Helvetica, Arial,
-    sans-serif;
+  // --normal-font-face: "Open Sans", "Helvetica Neue", Helvetica, Arial,
+  //   sans-serif;
+  --normal-font-face: "Noto Serif", "Source Han Serif CN for Display",
+    "Times New Roman", serif;
 }
 
 html {
