@@ -24,7 +24,7 @@ const isICO = typeof icon == "string" && icon.endsWith(".ico");
 
 <Clickable
   href={url}
-  class=`card border border-base-content/10 hover:shadow-lg transition-all card-sm ${icon ? 'card-side' : ''} ${className}`
+  class=`card border border-base-content/10 hover:bg-primary/10 transition-all card-sm ${icon ? 'card-side' : ''} ${className}`
   aria-label={`Visit ${name}'s blog`}
   {...props}
   is="div"
