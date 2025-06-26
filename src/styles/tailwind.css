@@ -51,7 +51,7 @@
 
   &::after {
     content: "";
-    height: 2px;
+    height: 0.15em;
     transform: scale(0);
     @apply absolute left-0 bottom-0 w-full bg-primary/50 transition-all;
   }

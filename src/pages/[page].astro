@@ -23,7 +23,8 @@ const hasSidebar = headings.length > 1;
 
 <CardLayout
   title={page.data.title}
-  description={page.data.title}
+  image={page.data.thumbnail}
+  description={page.data.description || page.data.title}
   hasSidebar={hasSidebar}
 >
   <div class="markdown-body is-detailed">
