@@ -31,6 +31,6 @@ const hasSidebar = headings.length > 1;
   <div class="markdown-body is-detailed">
     <Content />
   </div>
-  <Comment class="mt-4" uid={`page:${page.id}`} />
+  <Comment class="mt-8" uid={`page:${page.id}`} />
   {hasSidebar && <Toc data={headings} slot="sidebar" />}
 </CardLayout>

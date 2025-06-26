@@ -32,6 +32,6 @@ const description = await generateDescription(post);
   </div>
   <div class="divider"></div>
   <PostMeta post={post} />
-  <Comment class="mt-4" uid={`blog:${post.id}`} />
+  <Comment class="mt-8" uid={`blog:${post.id}`} />
   {post.data.toc && <Toc data={headings} slot="sidebar" />}
 </CardLayout>
