@@ -13,14 +13,18 @@ const { uid } = Astro.props;
 <script>
   import Gitalk from "gitalk";
   import { GitalkConfig } from "@/consts";
-  if (GitalkConfig) {
-    const uid = document.getElementById("gitalk-mainEl")?.dataset.uid;
-    const gitalk = new Gitalk({
-      id: uid,
-      ...GitalkConfig,
-    });
-    gitalk.render("gitalk-mainEl");
-  }
+  const init = () => {
+    if (GitalkConfig) {
+      const uid = document.getElementById("gitalk-mainEl")?.dataset.uid;
+      const gitalk = new Gitalk({
+        id: uid,
+        ...GitalkConfig,
+      });
+      gitalk.render("gitalk-mainEl");
+    }
+  };
+  init();
+  document.addEventListener("astro:after-swap", init);
 </script>
 
 <style lang="scss" is:global>
