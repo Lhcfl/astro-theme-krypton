@@ -109,7 +109,7 @@ const { uid } = Astro.props;
       }
     }
     .gt-avatar {
-      display: inline-block;
+      @apply avatar rounded;
       width: 3.125em;
       height: 3.125em;
     }
@@ -127,7 +127,7 @@ const { uid } = Astro.props;
       vertical-align: top;
     }
     .gt-btn {
-      @apply btn btn-primary;
+      @apply btn btn-sm btn-primary font-sans;
     }
     .gt-btn-login {
       margin-right: 0;
@@ -150,25 +150,18 @@ const { uid } = Astro.props;
       text-align: center;
     }
     .gt-link {
-      border-bottom: 1px dotted #6190e8;
+      @apply text-primary smooth-underline;
     }
     .gt-meta {
-      margin: 1.25em 0;
-      position: relative;
-      font-size: 1em;
-      position: relative;
-      z-index: 10;
-      &:after {
-        clear: both;
-      }
+      @apply relative flex items-center justify-between mb-2;
     }
     .gt-counts {
       margin: 0 0.625em 0 0;
     }
     .gt-user {
-      float: right;
-      margin: 0;
-      font-size: 92%;
+      .gt-user-inner {
+        @apply btn btn-sm;
+      }
       .gt-ico {
         margin: 0 0 0 0.3125em;
         svg {
@@ -202,15 +195,8 @@ const { uid } = Astro.props;
       padding-top: 0.5em;
     }
     .gt-popup {
-      position: absolute;
-      right: 0;
-      top: 2.375em;
-      background: var(--secondary);
-      display: inline-block;
-      border: 1px solid var(--secondary-high);
-      padding: 0.625em 0;
-      font-size: 0.875em;
-      letter-spacing: 0.5px;
+      @apply absolute right-0 top-4 bg-base-100 dropdown menu rounded-box shadow-sm z-20;
+      animation: fadeInDown 0.3s ease-in-out;
       .gt-action {
         cursor: pointer;
         display: block;
@@ -237,25 +223,8 @@ const { uid } = Astro.props;
     }
     .gt-header-controls {
       @apply flex items-center gap-2 mt-2;
-      &:after {
-        clear: both;
-      }
-    }
-    &.gt-input-focused {
-      position: relative;
-      &:after {
-        content: "";
-        position: fixed;
-        bottom: 0%;
-        left: 0;
-        right: 0;
-        top: 0;
-        background: #000;
-        opacity: 0.6;
-        z-index: 9999;
-      }
-      .gt-header-comment {
-        z-index: 10000;
+      a {
+        @apply text-primary underline underline-offset-2 decoration-dotted smooth-underline;
       }
     }
     .gt-comments {
@@ -272,11 +241,11 @@ const { uid } = Astro.props;
       position: relative;
       padding: 0.625em 0;
       display: flex;
-    }
-    .gt-comment-content {
-      flex: 1;
-      margin-left: 1.25em;
-      overflow: auto;
+      .gt-comment-content {
+        flex: 1;
+        margin-left: 1.25em;
+        overflow: auto;
+      }
     }
     .gt-comment-block-1 {
       float: right;
@@ -340,11 +309,6 @@ const { uid } = Astro.props;
   .gt-container .gt-link-counts,
   .gt-container .gt-link-project {
     text-decoration: none;
-  }
-  .gt-container .gt-header-controls:before,
-  .gt-container .gt-header-controls:after {
-    content: " ";
-    display: table;
   }
   .gt-container .gt-comment-like,
   .gt-container .gt-comment-edit,
