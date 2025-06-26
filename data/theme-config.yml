@@ -26,3 +26,11 @@ nav:
   - href: "/search"
     icon: mingcute:search-3-line
     label: Search
+
+# if you are using gitalk (https://github.com/gitalk/gitalk) for comments, uncomment the following section and fill in the details
+gitalk:
+  # clientID:
+  # clientSecret:
+  # repo:
+  # owner:
+  # admin:

@@ -5,6 +5,7 @@ import Toc from "@/components/Toc.astro";
 import CardLayout from "@/layouts/CardLayout.astro";
 import { generateDescription } from "@/utils/gen-description";
 import PostMeta from "@/components/PostMeta.astro";
+import Comment from "@/components/Comment.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -31,5 +32,6 @@ const description = await generateDescription(post);
   </div>
   <div class="divider"></div>
   <PostMeta post={post} />
+  <Comment class="mt-4" uid={`blog:${post.id}`} />
   {post.data.toc && <Toc data={headings} slot="sidebar" />}
 </CardLayout>

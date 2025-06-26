@@ -16,6 +16,16 @@ const validator = z.object({
       label: z.string(),
     })
   ),
+  gitalk: z
+    .object({
+      clientID: z.string(),
+      clientSecret: z.string(),
+      repo: z.string(),
+      owner: z.string(),
+      admin: z.array(z.string()),
+    })
+    .optional()
+    .nullable(),
 });
 
 const ThemeConfig = (() => {
@@ -47,3 +57,4 @@ export const SITE_TITLE = ThemeConfig.title;
 export const SITE_DESCRIPTION = ThemeConfig.description;
 export const SITE_AUTHOR = ThemeConfig.author;
 export const SiteConfig = ThemeConfig;
+export const GitalkConfig = ThemeConfig.gitalk;
