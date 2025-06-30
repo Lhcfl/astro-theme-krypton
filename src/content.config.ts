@@ -33,4 +33,12 @@ const pages = defineCollection({
     }),
 });
 
-export const collections = { blog, pages };
+const typ = defineCollection({
+  loader: glob({ base: dataPath + "/typ", pattern: "*.typ" }),
+  schema: z.object({
+    title: z.string(),
+    date: z.coerce.date(),
+  }),
+});
+
+export const collections = { blog, pages, typ };

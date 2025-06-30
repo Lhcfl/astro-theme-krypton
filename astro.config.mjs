@@ -10,6 +10,7 @@ import { createShikiConfig } from "./shiki-ext.js";
 import tailwindcss from "@tailwindcss/vite";
 import YAML from "js-yaml";
 import fs from "node:fs";
+import { typst } from "astro-typst";
 
 const dataOutside = fs.existsSync("../data");
 export const dataPath = dataOutside ? "../data" : "./data";
@@ -40,7 +41,21 @@ export default defineConfig({
       footnoteLabel: "脚注",
     },
   },
-  integrations: [mdx(), sitemap(), icon(), svelte()],
+  integrations: [
+    mdx(),
+    sitemap(),
+    icon(),
+    svelte(),
+    typst({
+      options: {
+        remPx: 14,
+      },
+      target: (id) => {
+        if (id.endsWith(".html.typ") || id.includes("/html/")) return "html";
+        return "svg";
+      },
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
     resolve: {
