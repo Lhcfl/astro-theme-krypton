@@ -1,0 +1,52 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+import FormattedDate from "./FormattedDate.astro";
+import { Icon } from "astro-icon/components";
+
+type Props = {
+  note: CollectionEntry<"notes">;
+};
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+---
+
+<div
+  class="note card card-sm md:card-md not-last:border-b border-base-content/20 rounded-none"
+>
+  <article class="card-body text-sm md:text-base">
+    <div class="note-meta flex items-center gap-2">
+      <div class="note-time badge badge-soft badge-info">
+        <FormattedDate date={note.data.date} />
+      </div>
+      {
+        note.data.tags?.map((tag) => (
+          <span class="note-tag badge badge-soft badge-accent">
+            <Icon name="mingcute:tag-line" />
+            {tag}
+          </span>
+        ))
+      }
+    </div>
+    <div class="note markdown-body">
+      <Content />
+    </div>
+  </article>
+</div>
+
+<style is:global>
+  @reference "../styles/tailwind.css";
+  .markdown-body.note details {
+    @apply collapse bg-base-100 border-base-300 border;
+
+    & > summary {
+      @apply collapse-title font-semibold;
+      display: list-item !important;
+    }
+
+    & > * {
+      @apply px-4;
+    }
+  }
+</style>

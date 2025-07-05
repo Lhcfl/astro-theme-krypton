@@ -1,0 +1,31 @@
+---
+import type { Page } from "astro";
+import type { HTMLAttributes } from "astro/types";
+
+type Props = {
+  page: Page<unknown>;
+  buildUrl: (number: number) => string;
+} & HTMLAttributes<"div">;
+const { page, buildUrl, ...props } = Astro.props;
+
+const pages = [-2, -1, 0, 1, 2, 3, 4]
+  .map((d) => page.currentPage + d)
+  .filter((x) => x > 0 && x <= page.total);
+---
+
+{
+  pages.length > 1 && (
+    <div {...props}>
+      <div class="pagination join">
+        {pages.map((pageNum) => (
+          <a
+            class={`join-item btn ${pageNum === page.currentPage ? "btn-active" : ""}`}
+            href={buildUrl(pageNum)}
+          >
+            {pageNum}
+          </a>
+        ))}
+      </div>
+    </div>
+  )
+}

@@ -1,5 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
+import moment from "moment";
 
 interface Props {
   date: Date;
@@ -10,11 +11,5 @@ const { date } = Astro.props;
 
 <Icon name="mingcute:calendar-2-line" />
 <time datetime={date.toISOString()}>
-  {
-    date.toLocaleDateString("en-us", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    })
-  }
+  {moment(date).format("YYYY-MM-DD")}
 </time>

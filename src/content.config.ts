@@ -33,6 +33,17 @@ const pages = defineCollection({
     }),
 });
 
+const notes = defineCollection({
+  // Load Markdown and MDX files in the `src/content/notes/` directory.
+  loader: glob({ base: dataPath + "/notes", pattern: "**/*.{md,mdx}" }),
+  // Type-check frontmatter using a schema
+  schema: () =>
+    z.object({
+      date: z.coerce.date(),
+      tags: z.array(z.string()).optional().nullable(),
+    }),
+});
+
 const typ = defineCollection({
   loader: glob({ base: dataPath + "/typ", pattern: "*.typ" }),
   schema: z.object({
@@ -41,4 +52,4 @@ const typ = defineCollection({
   }),
 });
 
-export const collections = { blog, pages, typ };
+export const collections = { blog, pages, typ, notes };
