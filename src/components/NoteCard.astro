@@ -12,10 +12,8 @@ const { note } = Astro.props;
 const { Content } = await render(note);
 ---
 
-<div
-  class="note card card-sm md:card-md not-last:border-b border-base-content/20 rounded-none"
->
-  <article class="card-body text-sm md:text-base">
+<div class="note py-6 not-last:border-b border-base-content/20 rounded-none">
+  <article class="text-sm md:text-base">
     <div class="note-meta flex items-center gap-2">
       <div class="note-time badge badge-soft badge-info">
         <FormattedDate date={note.data.date} />
