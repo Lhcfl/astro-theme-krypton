@@ -9,12 +9,11 @@ if (argc <= 2) {
   exit(0);
 }
 const blogName = argv.at(-1);
-const blogPath = `./data/blog/${blogName}.md`;
+const blogPath = `./data/notes/${blogName}.md`;
 
 fs.writeFileSync(
   blogPath,
   `---
-title: ${blogName}
 date: ${moment().format("YYYY-MM-DD hh:mm:ss")}
 ---
 `

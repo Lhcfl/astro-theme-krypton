@@ -3,8 +3,12 @@
 // =====================================
 @use "./color-defination.scss";
 
+// 思源屏显宋体
 @import url("https://chinese-fonts-cdn.deno.dev/packages/sypxzs/dist/%E6%80%9D%E6%BA%90%E5%B1%8F%E6%98%BE%E8%87%BB%E5%AE%8B/result.css");
-@import url("https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap");
+// 霞骛文楷
+@import url("https://chinese-fonts-cdn.deno.dev/packages/lxgwwenkaibright/dist/LXGWBright-Regular/result.css");
+// Noto Serif + 霞骛文楷繁体
+@import url("https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap");
 
 @font-face {
   font-family: "mononoki";
@@ -128,12 +132,36 @@ body {
     border-color: var(--secondary-500);
   }
 
-  blockquote {
-    box-sizing: border-box;
-    margin: 1.6em 0 1.6em 0em;
-    padding: 0 0 0 1.6em;
-    border-left: var(--color-secondary) 0.3em solid;
+  > blockquote {
+    padding: 0 1em 0 2.5em;
+    position: relative;
+    &::before {
+      content: "”"; /* 引号内容 */
+      font-size: 4em; /* 引号大小 */
+      opacity: 0.4;
+      position: absolute; /* 绝对定位 */
+      top: -0.3rem; /* 向上偏移 */
+      left: 0rem; /* 向左偏移 */
+      line-height: 1; /* 避免引号溢出 */
+    }
+    blockquote {
+      border-left: 2px solid var(--color-secondary);
+      padding: 0 0 0 1em;
+    }
+    font-style: italic;
+    // language specific styles
+    [lang="zh"],
+    [lang="ja"] {
+      font-style: normal;
+      font-family: "LXGW Bright", "LXGW Wenkai TC", "LXGW Wenkai", cursive;
+    }
   }
+  // blockquote:not([lang="en"]) {
+  //   box-sizing: border-box;
+  //   margin: 1.6em 0 1.6em 0em;
+  //   padding: 0 0 0 1.6em;
+  //   border-left: var(--color-secondary) 0.3em solid;
+  // }
 
   code,
   tt {

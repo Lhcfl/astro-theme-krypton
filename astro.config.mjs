@@ -3,7 +3,9 @@ import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import remarkMath from "remark-math";
+import remarkDirective from "remark-directive";
 import rehypeKatex from "rehype-katex";
+import { rehypeLanguageDetect } from "./plugins/rehype-language-detect.js";
 import icon from "astro-icon";
 import svelte from "@astrojs/svelte";
 import { createShikiConfig } from "./shiki-ext.js";
@@ -33,8 +35,8 @@ const ThemeConfig = (() => {
 export default defineConfig({
   site: ThemeConfig.site,
   markdown: {
-    remarkPlugins: [remarkMath],
-    rehypePlugins: [rehypeKatex],
+    remarkPlugins: [remarkMath, remarkDirective],
+    rehypePlugins: [rehypeKatex, rehypeLanguageDetect],
     shikiConfig: createShikiConfig(),
     remarkRehype: {
       allowDangerousHtml: true,

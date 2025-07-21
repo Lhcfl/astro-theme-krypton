@@ -64,3 +64,16 @@
 .markdown-body a:not(.clickable-bkg-link) {
   @apply underline decoration-dotted decoration-primary/50 underline-offset-4 smooth-underline;
 }
+
+details.beautiful-details {
+  @apply collapse bg-base-100 border-base-300 border;
+
+  &>summary {
+    @apply collapse-title font-semibold;
+    display: list-item !important;
+  }
+
+  &>* {
+    @apply px-4;
+  }
+}
