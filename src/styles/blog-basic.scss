@@ -157,6 +157,18 @@ body {
         font-family: "LXGW Bright", "LXGW Wenkai TC", "LXGW Wenkai", cursive;
       }
     }
+
+    &[lang] {
+      font-style: italic;
+      pre {
+        font-style: normal;
+      }
+    }
+    &[lang="zh"],
+    &[lang="ja"] {
+      font-style: normal;
+      font-family: "LXGW Bright", "LXGW Wenkai TC", "LXGW Wenkai", cursive;
+    }
   }
   // blockquote:not([lang="en"]) {
   //   box-sizing: border-box;
