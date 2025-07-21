@@ -3,7 +3,9 @@ import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import remarkMath from "remark-math";
-import remarkDirective from "remark-directive";
+// import remarkDirective from "remark-directive";
+// import remarkDirectiveRehype from "remark-directive-rehype";
+import remarkFootnotesExtra from "remark-footnotes-extra";
 import rehypeKatex from "rehype-katex";
 import { rehypeLanguageDetect } from "./plugins/rehype-language-detect.js";
 import icon from "astro-icon";
@@ -35,7 +37,12 @@ const ThemeConfig = (() => {
 export default defineConfig({
   site: ThemeConfig.site,
   markdown: {
-    remarkPlugins: [remarkMath, remarkDirective],
+    remarkPlugins: [
+      remarkMath,
+      // remarkDirective,
+      // remarkDirectiveRehype,
+      remarkFootnotesExtra,
+    ],
     rehypePlugins: [rehypeKatex, rehypeLanguageDetect],
     shikiConfig: createShikiConfig(),
     remarkRehype: {

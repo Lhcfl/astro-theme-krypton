@@ -29,6 +29,8 @@
     "katex": "^0.16.22",
     "rehype-katex": "^7.0.1",
     "remark-directive": "^4.0.0",
+    "remark-directive-rehype": "^0.4.2",
+    "remark-footnotes-extra": "^0.3.0",
     "remark-math": "^6.0.0",
     "sharp": "^0.34.2",
     "shiki": "^3.6.0",
