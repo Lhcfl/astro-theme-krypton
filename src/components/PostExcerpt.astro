@@ -9,7 +9,10 @@ const { post } = Astro.props;
 
 const html = post?.data.summary || (await Astro.slots.render("default"));
 const moreIndex = html.indexOf("<!-- more");
-const excerpt = html.slice(0, moreIndex == -1 ? undefined : moreIndex);
+let excerpt = html.slice(0, moreIndex == -1 ? undefined : moreIndex);
+if (!excerpt.startsWith("<p")) {
+  excerpt = `<p>${excerpt}</p>`;
+}
 ---
 
 <Fragment set:html={excerpt} />

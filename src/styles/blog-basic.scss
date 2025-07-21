@@ -148,12 +148,14 @@ body {
       border-left: 2px solid var(--color-secondary);
       padding: 0 0 0 1em;
     }
-    font-style: italic;
-    // language specific styles
-    [lang="zh"],
-    [lang="ja"] {
-      font-style: normal;
-      font-family: "LXGW Bright", "LXGW Wenkai TC", "LXGW Wenkai", cursive;
+    &:not([lang]) > *:not(pre) {
+      font-style: italic;
+      // language specific styles
+      &[lang="zh"],
+      &[lang="ja"] {
+        font-style: normal;
+        font-family: "LXGW Bright", "LXGW Wenkai TC", "LXGW Wenkai", cursive;
+      }
     }
   }
   // blockquote:not([lang="en"]) {

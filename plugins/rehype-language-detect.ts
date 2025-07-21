@@ -6,7 +6,7 @@ import { iso6393To1 } from "iso-639-3";
 export function rehypeLanguageDetect() {
   return (tree: any) => {
     visit(tree, "element", (node) => {
-      if (["p", "ul", "ol", "blockquote"].includes(node.tagName)) {
+      if (["p", "ul", "ol"].includes(node.tagName)) {
         const textContent = toString(node);
         const lang = franc(textContent, { minLength: 10 });
         if (lang === "und") {
