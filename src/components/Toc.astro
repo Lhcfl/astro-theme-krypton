@@ -133,11 +133,14 @@ const getMargin = (depth: number) => {
 
 <script>
   import { useThrottledFn } from "@/utils/throttle";
-  function highlightTocListItems(slug: string) {
+  function highlightTocListItems(slug: string | null | undefined) {
     const toc = document.getElementById("page-toc");
     if (!toc) return;
     const lis = toc.querySelectorAll("li");
     lis.forEach((li) => li.classList.remove("active", "active-now"));
+    if (slug == null) {
+      return;
+    }
     for (const li of lis) {
       li.classList.add("active");
       // console.log([li.dataset.slug, slug]);
@@ -151,13 +154,21 @@ const getMargin = (depth: number) => {
   function obs() {
     const tocRoot = document.querySelector(".markdown-body.is-detailed");
     if (!tocRoot) return;
-    const targets = tocRoot.querySelectorAll("h1,h2,h3,h4,h5,h6");
+    const targets = Array.from(
+      tocRoot.querySelectorAll("h1,h2,h3,h4,h5,h6").values()
+    );
 
     const evalHighlight = useThrottledFn(() => {
-      const firstVisible = targets
-        .values()
-        .find((t) => t.getBoundingClientRect().y > 70);
-      if (firstVisible) highlightTocListItems(firstVisible?.id);
+      const firstVisibleId = targets.findIndex(
+        (t) => t.getBoundingClientRect().y > 110
+      );
+      if (firstVisibleId === 0) {
+        highlightTocListItems(null);
+      } else if (firstVisibleId == -1) {
+        highlightTocListItems(targets.at(-1)?.id);
+      } else {
+        highlightTocListItems(targets.at(firstVisibleId - 1)?.id);
+      }
     }, 200);
 
     document.addEventListener("scroll", evalHighlight);

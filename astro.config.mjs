@@ -33,6 +33,10 @@ const ThemeConfig = (() => {
   }
 })();
 
+if (import.meta.env.DEV) {
+  console.log("[DEV] You are in the development mode!");
+}
+
 // https://astro.build/config
 export default defineConfig({
   site: ThemeConfig.site,
@@ -76,6 +80,6 @@ export default defineConfig({
   },
   prefetch: { defaultStrategy: "viewport" },
   image: {
-    remotePatterns: [{ protocol: "https" }],
+    remotePatterns: import.meta.env.DEV ? [] : [{ protocol: "https" }],
   },
 });
