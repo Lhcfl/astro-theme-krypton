@@ -15,7 +15,7 @@ fs.writeFileSync(
   blogPath,
   `---
 title: ${blogName}
-date: ${moment().format("YYYY-MM-DD hh:mm:ss")}
+date: ${moment().format("YYYY-MM-DD HH:mm:ss")}
 ---
 `
 );

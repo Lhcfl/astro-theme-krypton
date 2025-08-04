@@ -14,7 +14,7 @@ const blogPath = `./data/notes/${blogName}.md`;
 fs.writeFileSync(
   blogPath,
   `---
-date: ${moment().format("YYYY-MM-DD hh:mm:ss")}
+date: ${moment().format("YYYY-MM-DD HH:mm:ss")}
 ---
 `
 );
